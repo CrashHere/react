@@ -4,6 +4,7 @@ import './App.css';
 
 class App extends Component {
   render() {
+    console.log((function () {return window.innerWidth < 1000}()))
     return (
       <div className="App">
         <div className="App-header">
