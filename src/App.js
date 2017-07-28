@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import DesktopMain from './Desktop/DesktopMain'
+
 class App extends Component {
+  state = {
+    windowWidth: window.innerWidth
+  }
+  componentDidMount = () => {
+    window.addEventListener("resize", this.updateDimensions)
+  }
+  updateDimensions = () => {
+    this.setState ({
+      windowWidth: window.innerWidth
+    })
+  }
   render() {
     console.log((function () {return window.innerWidth < 1000}()))
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          {this.state.windowWidth > 1020 ?
+            <DesktopMain />
+            :
+            <div>Mobile</div>
+          }
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
