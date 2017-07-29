@@ -1,0 +1,22 @@
+.side-component-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 30px;
+}
+
+.options {
+  margin-bottom: 90px;
+}
+
+.logo-container {
+  font-weight: lighter;
+}
+
+.logo-text {
+  font-family: Poppins;
+  margin: 0 0 0 10px;
+  color: #35343D;
+  font-size: 16px;
+}

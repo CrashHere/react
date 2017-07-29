@@ -1,5 +1,5 @@
 import React from 'react'
-import './map.css' 
+import './map.css'
 import Modal from '../../Modal'
 
 class DesktopMap extends React.Component {
@@ -38,6 +38,7 @@ class DesktopMap extends React.Component {
     })
     var mapEvents = new window.H.mapevents.MapEvents(map)
     var behavior = new window.H.mapevents.Behavior(mapEvents)
+    map.getViewPort().resize()
     this.generateMarkers(map)
   }
 
@@ -57,8 +58,8 @@ class DesktopMap extends React.Component {
         }
       })
       map.addObject(new window.H.map.DomMarker(entry._geoloc,{icon: icon}))
-      
-      } 
+
+      }
     })
   }
 
