@@ -14,6 +14,11 @@
   border-radius: 50%;
 }
 
+.pop-up {
+  cursor: auto;
+}
+
+
 .pop-up-name {
   max-width: 400px;
   color: #35343D;
@@ -53,6 +58,11 @@
   text-align: center;
 }
 
+.directions-button:hover {
+  background-color: #B2FF59;
+  cursor: pointer;
+}
+
 .close-button {
   height: 56px;
   width: 150px;
@@ -66,4 +76,9 @@
   font-weight: bold;
   line-height: 24px;
   text-align: center;
+}
+
+.close-button:hover {
+  background-color: #B2FF59;
+  cursor: pointer;
 }

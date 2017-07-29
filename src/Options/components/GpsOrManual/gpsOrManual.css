@@ -19,7 +19,11 @@
   padding: 13px 20px;
   margin: 0 0 16px 0;
   width: 184px;
+}
+
+.gps-or-manual-button:hover {
   cursor: pointer;
+  background-color: #B2FF59;
 }
 
 .gps-or-manual-button-text {
