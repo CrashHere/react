@@ -13,3 +13,57 @@
   background-color: red;
   border-radius: 50%;
 }
+
+.pop-up-name {
+  max-width: 400px;
+  color: #35343D;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.pop-up-address {
+  max-width: 400px;
+  color: #35343D;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.pop-up-phone {
+  max-width: 400px;
+  color: #35343D;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.directions-button {
+  height: 56px;
+  width: 220px;
+  border-radius: 100px;
+  background-color: #76FF03;
+  border: none;
+	color: #35343D;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+}
+
+.close-button {
+  height: 56px;
+  width: 150px;
+  margin-left: 20px;
+  border-radius: 100px;
+  background-color: #76FF03;
+  border: none;
+	color: #35343D;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+}
