@@ -88,7 +88,6 @@ class DesktopMap extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <div ref='mapContainer' className='mapContainer'>
         {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose}/>}
