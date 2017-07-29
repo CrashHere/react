@@ -1,10 +1,13 @@
 import React from 'react'
 import connectHits from 'react-instantsearch/src/connectors/connectHits'
+import {connect} from 'react-redux'
 
 import Modal from '../../Modal'
 import Directions from '../DesktopDirections/DesktopDirections'
 import './map.css'
 import Marker from './Marker'
+
+import {mapInstance} from '../../actions'
 
 class DesktopMap extends React.Component {
   constructor (props) {
@@ -36,11 +39,13 @@ class DesktopMap extends React.Component {
           zoom: 20
         }
       })
-      this.state.map.setCenter({
-        lat,
-        lng
-      })
-      this.state.map.setZoom(15)
+      if (Boolean(this.props.map)) {
+        this.props.map.setCenter({
+          lat,
+          lng
+        })
+        this.props.map.setZoom(15)
+        }
     })
   }
 
@@ -64,9 +69,7 @@ class DesktopMap extends React.Component {
     const mapEvents = new window.H.mapevents.MapEvents(map)
     const behavior = new window.H.mapevents.Behavior(mapEvents)
     window.addEventListener('resize', () => map.getViewPort().resize())
-    this.setState({
-      map
-    })
+    this.props.mapInstance(map)
   }
 
   handleModalClose () {
@@ -108,7 +111,6 @@ class DesktopMap extends React.Component {
   render () {
     const { hits } = this.props
     const {
-      map,
       showDirections,
       showModal
     } = this.state
@@ -124,13 +126,13 @@ class DesktopMap extends React.Component {
         <div
           className='mapContainer'
           ref={element => {
-            if (!this.state.map) {
+            if (!this.props.map) {
               this.createMap(element)
             }
           }}
         >
           {
-            map
+            this.props.map
               ? (
                 hits
                   .filter(hit => Boolean(hit._geoloc))
@@ -139,7 +141,7 @@ class DesktopMap extends React.Component {
                     <Marker
                       hit={hit}
                       key={index}
-                      map={map}
+                      map={this.props.map}
                       onClick={this.handleClick}
                     />
                   )
@@ -156,4 +158,24 @@ class DesktopMap extends React.Component {
   }
 }
 
-export default connectHits(DesktopMap)
+function mapStateToProps (state) {
+  return {
+    map: state.map
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    mapInstance: map => dispatch(mapInstance(map))
+  }
+}
+
+const withSearch = connectHits
+
+const withState = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
+
+export default withState(withSearch(DesktopMap))
+
