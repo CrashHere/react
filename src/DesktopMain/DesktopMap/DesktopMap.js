@@ -1,7 +1,9 @@
 import React from 'react'
-import './map.css'
+
 import Modal from '../../Modal'
 import Directions from '../DesktopDirections/DesktopDirections'
+import './map.css'
+import Marker from './Marker'
 
 class DesktopMap extends React.Component {
   constructor (props) {
@@ -12,15 +14,16 @@ class DesktopMap extends React.Component {
         address: '',
         phone: ''
       },
+      map: null,
       showModal: false,
       showDirections: false
     }
-    this.generateMarkers = this.generateMarkers.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleModalClose = this.handleModalClose.bind(this)
     this.generateDirections = this.generateDirections.bind(this)
   }
-  componentDidMount () {
+
+  createMap (element) {
     const platform = new window.H.service.Platform({
       'app_id': 'R8EbnjUs0cYuzo2VbpAy',
       'app_code': 'DwZ7Jzz1aqmZQcurKWq6sA'
@@ -28,41 +31,21 @@ class DesktopMap extends React.Component {
 
     const defaultLayers = platform.createDefaultLayers();
 
-  // Instantiate (and display) a map object:
-    console.log(this.refs)
+    // Instantiate (and display) a map object:
     const map = new window.H.Map(
-      this.refs.mapContainer,
+      element,
       defaultLayers.normal.map,
       {
         zoom: 10,
         center: { lat: -36.8484600, lng: 174.7633 }
-      })
+      }
+    )
     const mapEvents = new window.H.mapevents.MapEvents(map)
     const behavior = new window.H.mapevents.Behavior(mapEvents)
     window.addEventListener('resize', () => map.getViewPort().resize())
-    this.generateMarkers(map)
-  }
-
-  generateMarkers (map) {
-    var animatedSvg =
-   '<div><svg width="20" height="20" ' +
-   'xmlns="http://www.w3.org/2000/svg" ' +
-   'style="transform:translate(-10px, -10px)">' +
-   '<circle cx="10" cy="10" r="5" stroke="#000" stroke-width="1" fill="#ff00ff" />'+
-   '</svg><div>'
-    this.props.data.map(entry => {
-
-    if (entry._geoloc) {
-      var icon = new window.H.map.DomIcon(animatedSvg, {
-        onAttach: element => {
-          element.addEventListener('click', () => this.handleClick(entry))
-        }
-      })
-      const markers = new window.H.map.DomMarker(entry._geoloc,{icon: icon})
-      map.addObject(markers)
-      }
+    this.setState({
+      map
     })
-
   }
 
   handleModalClose () {
@@ -71,9 +54,10 @@ class DesktopMap extends React.Component {
     })
   }
 
-  handleClick(entry) {
+  handleClick (hit) {
+    console.log('click: ', hit)
     this.setState({
-      current: entry,
+      current: hit,
       showModal: true
     })
   }
@@ -101,15 +85,48 @@ class DesktopMap extends React.Component {
   }
 
   render () {
+    const { map, showModal } = this.state
     return (
-      <div className='DesktopMap'>
-        {!this.state.showDirections
-         ? <div ref='mapContainer' className='mapContainer'>
-          {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />}
-        </div>
-         : <Directions start={this.state.start} end={this.state.end} />}
+      <div
+        className='mapContainer'
+        ref={element => {
+          if (!this.state.map) {
+            this.createMap(element)
+          }
+        }}
+      >
+        {
+          map
+            ? (
+              this.props.data
+                .filter(hit => Boolean(hit._geoloc))
+                .map((hit, index) => {
+                return (
+                  <Marker
+                    hit={hit}
+                    key={index}
+                    map={map}
+                    onClick={this.handleClick}
+                  />
+                )
+              })
+            )
+            : null
+        }
+        {
+          showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />
+        }
       </div>
     )
+    // return (
+    //   <div className='DesktopMap'>
+    //     {!this.state.showDirections
+    //      ? <div ref='mapContainer' className='mapContainer'>
+    //       {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />}
+    //     </div>
+    //      : <Directions start={this.state.start} end={this.state.end} />}
+    //   </div>
+    // )
   }
 }
 
