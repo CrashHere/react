@@ -79,7 +79,7 @@ class DesktopMap extends React.Component {
   modalContent () {
     const shelter = this.state.current
     return (
-      <div>
+      <div className="pop-up">
         <p>{shelter.name}</p>
         <p>{shelter.address}</p>
         <p>{shelter.phone}</p>

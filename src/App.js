@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        {this.state.windowWidth > 1000 ?
+        {this.state.windowWidth > 800 ?
           <DesktopMain />
           :
           <MobileMain
