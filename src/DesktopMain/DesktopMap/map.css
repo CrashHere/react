@@ -1,0 +1,10 @@
+.mapContainer {
+  width: 50%;
+  height: 560px !important;
+  margin: 0 auto;
+}
+.circle-marker {
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+}

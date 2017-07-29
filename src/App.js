@@ -7,6 +7,7 @@ class App extends Component {
   state = {
     windowWidth: window.innerWidth
   }
+
   componentDidMount = () => {
     window.addEventListener("resize", this.updateDimensions)
   }
