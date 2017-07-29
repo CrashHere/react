@@ -44,25 +44,25 @@ class DesktopMap extends React.Component {
   }
 
   generateMarkers (map) {
+    window.markers = []
     var animatedSvg =
    '<div><svg width="20" height="20" ' +
    'xmlns="http://www.w3.org/2000/svg" ' +
    'style="transform:translate(-10px, -10px)">' +
    '<circle cx="10" cy="10" r="5" stroke="#000" stroke-width="1" fill="#ff00ff" />'+
    '</svg><div>'
-    this.props.data.map(entry => {
-
+    this.props.data.map((entry, i) => {
     if (entry._geoloc) {
       var icon = new window.H.map.DomIcon(animatedSvg, {
         onAttach: element => {
           element.addEventListener('click', () => this.handleClick(entry))
         }
       })
-      const markers = new window.H.map.DomMarker(entry._geoloc,{icon: icon})
-      map.addObject(markers)
+      window['markers'+i] = new window.H.map.DomMarker(entry._geoloc,{icon: icon})
+      window.markers.push(i)
+      map.addObject(window['markers' + i])
       }
     })
-
   }
 
   handleModalClose () {
