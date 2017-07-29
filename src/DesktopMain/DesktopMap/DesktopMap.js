@@ -1,6 +1,7 @@
 import React from 'react'
 import './map.css'
 import Modal from '../../Modal'
+import Directions from '../DesktopDirections/DesktopDirections'
 
 class DesktopMap extends React.Component {
   constructor (props) {
@@ -11,14 +12,16 @@ class DesktopMap extends React.Component {
         address: '',
         phone: ''
       },
-      showModal: false
+      showModal: false,
+      showDirections: false
     }
     this.generateMarkers = this.generateMarkers.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleModalClose = this.handleModalClose.bind(this)
+    this.generateDirections = this.generateDirections.bind(this)
   }
   componentDidMount () {
-      const platform = new window.H.service.Platform({
+    const platform = new window.H.service.Platform({
       'app_id': 'R8EbnjUs0cYuzo2VbpAy',
       'app_code': 'DwZ7Jzz1aqmZQcurKWq6sA'
     })
@@ -26,23 +29,18 @@ class DesktopMap extends React.Component {
     const defaultLayers = platform.createDefaultLayers();
 
   // Instantiate (and display) a map object:
-    window.navigator.geolocation.getCurrentPosition(position => {
-      const userLocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      } 
-      const map = new window.H.Map(
-        this.refs.mapContainer,
-        defaultLayers.normal.map,
-        {
-          zoom: 10,
-          center: userLocation || { lat: -36.8484600, lng: 174.7633 }
-        })
-      const mapEvents = new window.H.mapevents.MapEvents(map)
-      const behavior = new window.H.mapevents.Behavior(mapEvents)
-      window.addEventListener('resize', () => map.getViewPort().resize())
-      this.generateMarkers(map)
-    })
+    console.log(this.refs)
+    const map = new window.H.Map(
+      this.refs.mapContainer,
+      defaultLayers.normal.map,
+      {
+        zoom: 10,
+        center: { lat: -36.8484600, lng: 174.7633 }
+      })
+    const mapEvents = new window.H.mapevents.MapEvents(map)
+    const behavior = new window.H.mapevents.Behavior(mapEvents)
+    window.addEventListener('resize', () => map.getViewPort().resize())
+    this.generateMarkers(map)
   }
 
   generateMarkers (map) {
@@ -60,10 +58,11 @@ class DesktopMap extends React.Component {
           element.addEventListener('click', () => this.handleClick(entry))
         }
       })
-      map.addObject(new window.H.map.DomMarker(entry._geoloc,{icon: icon}))
-
+      const markers = new window.H.map.DomMarker(entry._geoloc,{icon: icon})
+      map.addObject(markers)
       }
     })
+
   }
 
   handleModalClose () {
@@ -86,14 +85,29 @@ class DesktopMap extends React.Component {
         <p>{shelter.name}</p>
         <p>{shelter.address}</p>
         <p>{shelter.phone}</p>
+        <button onClick={() => this.generateDirections(shelter._geoloc)}>Directions</button>
       </div>
     )
   }
 
+  generateDirections (destination) {
+    navigator.geolocation.getCurrentPosition(position => {
+    this.setState({
+      end: destination,
+      start: {lat: position.coords.latitude, lng:position.coords.longitude},
+      showDirections: true
+      })
+    })
+  }
+
   render () {
     return (
-      <div ref='mapContainer' className='mapContainer'>
-        {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose}/>}
+      <div className='DesktopMap'>
+        {!this.state.showDirections
+         ? <div ref='mapContainer' className='mapContainer'>
+          {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />}
+        </div>
+         : <Directions start={this.state.start} end={this.state.end} />}
       </div>
     )
   }
