@@ -1,0 +1,86 @@
+import React from 'react'
+import './map.css' 
+import {getGeocode} from '../../api'
+
+class DesktopMap extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      current: {},
+      showModal: false
+    }
+    this.generateMarkers = this.generateMarkers.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleModalClose = this.handleModalClose.bind(this)
+  }
+  componentDidMount () {
+      const platform = new window.H.service.Platform({
+      'app_id': 'R8EbnjUs0cYuzo2VbpAy',
+      'app_code': 'DwZ7Jzz1aqmZQcurKWq6sA'
+    })
+
+    const defaultLayers = platform.createDefaultLayers();
+
+  // Instantiate (and display) a map object:
+    const map = new window.H.Map(
+    this.refs.mapContainer,
+    defaultLayers.normal.map,
+    {
+      zoom: 10,
+      center: { lat: -36.8484600, lng: 174.7633 }
+    })
+    map.addEventListener('tap', function(evt) {
+    // Log 'tap' and 'mouse' events:
+    console.log(evt)
+    })
+    var mapEvents = new window.H.mapevents.MapEvents(map)
+    var behavior = new window.H.mapevents.Behavior(mapEvents)
+    this.generateMarkers(map)
+  }
+
+  generateMarkers (map) {
+    var animatedSvg =
+   '<div><svg width="20" height="20" ' +
+   'xmlns="http://www.w3.org/2000/svg" ' +
+   'style="transform:translate(-10px, -10px)">' +
+   '<circle cx="10" cy="10" r="5" stroke="#000" stroke-width="1" fill="#ff00ff" />'+
+   '</svg><div>'
+    console.log(this.props)
+    this.props.data.map(entry => {
+
+    if (entry._geoloc) {
+      var icon = new window.H.map.DomIcon(animatedSvg, {
+        onAttach: element => {
+          element.addEventListener('click', () => this.handleClick(entry))
+        }
+      })
+      map.addObject(new window.H.map.DomMarker(entry._geoloc,{icon: icon}))
+      
+      } 
+    })
+  }
+
+  handleModalClose () {
+    this.setState({
+      showModal: false
+    })
+  }
+
+  handleClick(entry) {
+    this.setState({
+      current: entry,
+      showModal: true
+    })
+  }
+
+  render () {
+    console.log(this.state)
+    return (
+      <div ref='mapContainer' className='mapContainer'>
+        
+      </div>
+    )
+  }
+}
+
+export default DesktopMap
