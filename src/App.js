@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="app">
         <SearchProvider>
-          {this.state.windowWidth > 1000 ?
+          {this.state.windowWidth > 800 ?
             <DesktopMain />
             :
             <MobileMain

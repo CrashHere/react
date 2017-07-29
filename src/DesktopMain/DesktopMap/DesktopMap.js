@@ -65,11 +65,12 @@ class DesktopMap extends React.Component {
   modalContent () {
     const shelter = this.state.current
     return (
-      <div>
-        <p>{shelter.name}</p>
-        <p>{shelter.address}</p>
-        <p>{shelter.phone}</p>
-        <button onClick={() => this.generateDirections(shelter._geoloc)}>Directions</button>
+      <div className="pop-up">
+        <p className="pop-up-name">{shelter.name}</p>
+        <p className="pop-up-address">{shelter.address}</p>
+        <p className="pop-up-phone">Phone: {shelter.phone}</p>
+        <button className="directions-button" onClick={() => this.generateDirections(shelter._geoloc)}>Directions</button>
+        <button className="close-button" onClick={() => this.handleModalClose()}>Close</button>
       </div>
     )
   }
