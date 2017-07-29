@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 class Marker extends Component {
   constructor (props) {
     super(props)
-    console.log('Marker props', props)
     this.state = {
       marker: null
     }
@@ -23,8 +22,11 @@ class Marker extends Component {
         element.addEventListener('click', () => onClick(hit))
       }
     })
-    const markers = new window.H.map.DomMarker(hit._geoloc,{icon})
-    map.addObject(markers)
+    const marker = new window.H.map.DomMarker(hit._geoloc,{icon})
+    map.addObject(marker)
+    this.setState({
+      marker
+    })
   }
 
   componentWillUnmount () {

@@ -1,4 +1,5 @@
 import React from 'react'
+import connectHits from 'react-instantsearch/src/connectors/connectHits'
 
 import Modal from '../../Modal'
 import Directions from '../DesktopDirections/DesktopDirections'
@@ -55,7 +56,6 @@ class DesktopMap extends React.Component {
   }
 
   handleClick (hit) {
-    console.log('click: ', hit)
     this.setState({
       current: hit,
       showModal: true
@@ -85,49 +85,54 @@ class DesktopMap extends React.Component {
   }
 
   render () {
-    const { map, showModal } = this.state
-    return (
-      <div
-        className='mapContainer'
-        ref={element => {
-          if (!this.state.map) {
-            this.createMap(element)
+    const { hits } = this.props
+    const {
+      map,
+      showDirections,
+      showModal
+    } = this.state
+    if (showDirections) {
+      return (
+        <Directions
+          end={this.state.end}
+          start={this.state.start}
+        />
+      )
+    } else {
+      return (
+        <div
+          className='mapContainer'
+          ref={element => {
+            if (!this.state.map) {
+              this.createMap(element)
+            }
+          }}
+        >
+          {
+            map
+              ? (
+                hits
+                  .filter(hit => Boolean(hit._geoloc))
+                  .map((hit, index) => {
+                  return (
+                    <Marker
+                      hit={hit}
+                      key={index}
+                      map={map}
+                      onClick={this.handleClick}
+                    />
+                  )
+                })
+              )
+              : null
           }
-        }}
-      >
-        {
-          map
-            ? (
-              this.props.data
-                .filter(hit => Boolean(hit._geoloc))
-                .map((hit, index) => {
-                return (
-                  <Marker
-                    hit={hit}
-                    key={index}
-                    map={map}
-                    onClick={this.handleClick}
-                  />
-                )
-              })
-            )
-            : null
-        }
-        {
-          showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />
-        }
-      </div>
-    )
-    // return (
-    //   <div className='DesktopMap'>
-    //     {!this.state.showDirections
-    //      ? <div ref='mapContainer' className='mapContainer'>
-    //       {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />}
-    //     </div>
-    //      : <Directions start={this.state.start} end={this.state.end} />}
-    //   </div>
-    // )
+          {
+            showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />
+          }
+        </div>
+      )
+    }
   }
 }
 
-export default DesktopMap
+export default connectHits(DesktopMap)
