@@ -26,20 +26,23 @@ class DesktopMap extends React.Component {
     const defaultLayers = platform.createDefaultLayers();
 
   // Instantiate (and display) a map object:
-    const map = new window.H.Map(
-    this.refs.mapContainer,
-    defaultLayers.normal.map,
-    {
-      zoom: 10,
-      center: { lat: -36.8484600, lng: 174.7633 }
+    window.navigator.geolocation.getCurrentPosition(position => {
+      const userLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      } 
+      const map = new window.H.Map(
+        this.refs.mapContainer,
+        defaultLayers.normal.map,
+        {
+          zoom: 10,
+          center: userLocation || { lat: -36.8484600, lng: 174.7633 }
+        })
+      const mapEvents = new window.H.mapevents.MapEvents(map)
+      const behavior = new window.H.mapevents.Behavior(mapEvents)
+      window.addEventListener('resize', () => map.getViewPort().resize())
+      this.generateMarkers(map)
     })
-    map.addEventListener('tap', function(evt) {
-    // Log 'tap' and 'mouse' events:
-    })
-    var mapEvents = new window.H.mapevents.MapEvents(map)
-    var behavior = new window.H.mapevents.Behavior(mapEvents)
-    map.getViewPort().resize()
-    this.generateMarkers(map)
   }
 
   generateMarkers (map) {
@@ -88,7 +91,6 @@ class DesktopMap extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <div ref='mapContainer' className='mapContainer'>
         {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose}/>}
