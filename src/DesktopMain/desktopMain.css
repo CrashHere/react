@@ -1,0 +1,13 @@
+.desktop-main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.side-component {
+  min-width: 368px;  
+}
+
+.map-component {
+  background-color: #ffedc1;
+  width: 100%
+}

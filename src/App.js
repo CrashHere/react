@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import DesktopMain from './Desktop/DesktopMain'
+import DesktopMain from './DesktopMain'
 
 class App extends Component {
   state = {
@@ -17,17 +17,12 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          {this.state.windowWidth > 1020 ?
-            <DesktopMain />
-            :
-            <div>Mobile</div>
-          }
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="app">
+        {this.state.windowWidth > 600 ?
+          <DesktopMain />
+          :
+          <div>Hello world</div>
+        }
       </div>
     );
   }

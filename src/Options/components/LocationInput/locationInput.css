@@ -1,0 +1,44 @@
+.location-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-input-text {
+	font-family: Poppins;
+  color: #35343D;
+  font-size: 16px;
+  font-weight: 500;
+	line-height: 32px;
+  margin: 0 0 24px 0;
+}
+
+.location-input-text-bold {
+  font-weight: 600;
+}
+
+.location-input-search {
+  	box-sizing: border-box;
+    height: 59px;
+    width: 323px;
+    border: 3px solid #76FF03;
+    border-radius: 100px;
+}
+
+.location-input-button {
+  text-align: center;
+  border-radius: 100px;
+  background-color: #76FF03;
+  padding: 16px 24px;
+  margin: 0 0 16px 0;
+  width: 184px;
+  cursor: pointer;
+}
+
+.location-input-button-text {
+	color: #35343D;
+	font-family: Poppins;
+	font-size: 16px;
+	font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+}
