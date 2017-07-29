@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 class Marker extends Component {
   constructor (props) {
@@ -50,4 +51,10 @@ Marker.propTypes = {
   onClick: PropTypes.func
 }
 
-export default Marker
+function mapStateToProps (state) {
+  return {
+    map: state.map || {}
+  }
+}
+
+export default connect(mapStateToProps)(Marker)
