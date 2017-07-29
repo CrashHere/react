@@ -6,7 +6,7 @@
 .location-input-text {
 	font-family: Poppins;
   color: #35343D;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 	line-height: 32px;
   margin: 0 0 24px 0;
@@ -17,18 +17,45 @@
 }
 
 .location-input-search {
-  	box-sizing: border-box;
-    height: 59px;
-    width: 323px;
-    border: 3px solid #76FF03;
-    border-radius: 100px;
+  display: flex;
+	box-sizing: border-box;
+  height: 65px;
+  width: 250px;
+  border: 3px solid #76FF03;
+  border-radius: 100px;
+  padding: 13px;
+  margin: 0 0 15px 0;
+}
+
+.location-input-magnifying-glass {
+  align-self: center;
+  height: 17px;
+  width: 17px;
+}
+
+.location-input-input {
+  border: none;
+  height: 24px;
+  width: 262px;
+	color: #35343D;
+  font-family: Poppins;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 24px;
+  margin: 0 0 0 8px;
+  outline: none;
+
+  @nest &:focus {
+    /*border: none;*/
+    outline: none;
+  }
 }
 
 .location-input-button {
   text-align: center;
   border-radius: 100px;
   background-color: #76FF03;
-  padding: 16px 24px;
+  padding: 13px 20px;
   margin: 0 0 16px 0;
   width: 184px;
   cursor: pointer;
@@ -37,8 +64,32 @@
 .location-input-button-text {
 	color: #35343D;
 	font-family: Poppins;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: bold;
   line-height: 24px;
   text-align: center;
+}
+
+@media (min-width: 370px) {
+  .location-input-text {
+    font-size: 16px;
+  }
+  .location-input-search {
+    padding: 17px;
+    width: 300px;
+  }
+  .location-input-magnifying-glass {
+    align-self: center;
+    height: 24px;
+    width: 24px;
+  }
+  .location-input-input {
+    font-size: 16px;
+  }
+  .location-input-button {
+    padding: 16px 24px;
+  }
+  .location-input-button-text {
+    font-size: 16px;
+  }
 }
