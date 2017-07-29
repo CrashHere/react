@@ -1,0 +1,13 @@
+.mobile-main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.mobile-side-component {
+  width: 100%;
+}
+
+.map-component {
+  background-color: #ffedc1;
+  width: 100%
+}
