@@ -150,7 +150,7 @@ class DesktopMap extends React.Component {
               : null
           }
           {
-            showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose} />
+            showModal && <Modal content={this.modalContent()} handleClose={this.handleModalClose} />
           }
         </div>
       )
