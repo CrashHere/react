@@ -17,11 +17,31 @@ class DesktopMap extends React.Component {
       },
       map: null,
       showModal: false,
-      showDirections: false
+      showDirections: false,
+      center: { lat: -36.8484600, lng: 174.7633 },
+      zoom: 10
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleModalClose = this.handleModalClose.bind(this)
     this.generateDirections = this.generateDirections.bind(this)
+  }
+
+  componentDidMount () {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { coords: { latitude: lat, longitude: lng }  } = position
+      this.setState({
+        center: {
+          lat,
+          lng,
+          zoom: 20
+        }
+      })
+      this.state.map.setCenter({
+        lat,
+        lng
+      })
+      this.state.map.setZoom(15)
+    })
   }
 
   createMap (element) {
@@ -37,8 +57,8 @@ class DesktopMap extends React.Component {
       element,
       defaultLayers.normal.map,
       {
-        zoom: 10,
-        center: { lat: -36.8484600, lng: 174.7633 }
+        zoom: this.state.zoom,
+        center: this.state.center
       }
     )
     const mapEvents = new window.H.mapevents.MapEvents(map)
