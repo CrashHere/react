@@ -3,6 +3,7 @@ import './App.css';
 
 import DesktopMain from './DesktopMain'
 import MobileMain from './MobileMain'
+import SearchProvider from './SearchProvider'
 
 class App extends Component {
   state = {
@@ -20,13 +21,15 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        {this.state.windowWidth > 1000 ?
-          <DesktopMain />
-          :
-          <MobileMain
-            mobile
-          />
-        }
+        <SearchProvider>
+          {this.state.windowWidth > 1000 ?
+            <DesktopMain />
+            :
+            <MobileMain
+              mobile
+            />
+          }
+        </SearchProvider>
       </div>
     );
   }
