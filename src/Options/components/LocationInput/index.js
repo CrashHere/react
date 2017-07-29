@@ -17,7 +17,7 @@ class LocationInput extends Component {
         <form className="location-input-form">
           <div className="location-input-search">
             <img src={MagnifyingGlass} className="location-input-magnifying-glass" />
-            <input type="text" placeholder="Enter your current location"/>
+            <input className="location-input-input" type="text" placeholder="Enter your current location"/>
           </div>
           <div className="location-input-buttons">
             <div className="location-input-button" onClick={onOptionClick("gpsOrManual")}>
