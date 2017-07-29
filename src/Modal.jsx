@@ -4,8 +4,8 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog'
 function Modal (props) {
   return (
     <div className='modal'>
-     <ModalContainer onClose={props.onClose}>
-        <ModalDialog onClose={props.onClose}>
+     <ModalContainer onClose={props.handleClose}>
+        <ModalDialog>
           {props.content}
         </ModalDialog>
       </ModalContainer>
