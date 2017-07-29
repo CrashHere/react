@@ -1,6 +1,8 @@
 import React from 'react'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog'
 
+import './modal.css'
+
 function Modal (props) {
   return (
     <div className='modal'>

@@ -80,9 +80,9 @@ class DesktopMap extends React.Component {
     const shelter = this.state.current
     return (
       <div className="pop-up">
-        <p>{shelter.name}</p>
-        <p>{shelter.address}</p>
-        <p>{shelter.phone}</p>
+        <p className="pop-up-name">{shelter.name}</p>
+        <p className="pop-up-address">{shelter.address}</p>
+        <p className="pop-up-phone">Phone: {shelter.phone}</p>
       </div>
     )
   }
