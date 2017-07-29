@@ -1,6 +1,5 @@
 import React from 'react'
 import './map.css' 
-import {getGeocode} from '../../api'
 import Modal from '../../Modal'
 
 class DesktopMap extends React.Component {
