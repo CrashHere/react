@@ -1,12 +1,17 @@
 import React from 'react'
 import './map.css' 
 import {getGeocode} from '../../api'
+import Modal from '../../Modal'
 
 class DesktopMap extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      current: {},
+      current: {
+        name: '',
+        address: '',
+        phone: ''
+      },
       showModal: false
     }
     this.generateMarkers = this.generateMarkers.bind(this)
@@ -31,7 +36,6 @@ class DesktopMap extends React.Component {
     })
     map.addEventListener('tap', function(evt) {
     // Log 'tap' and 'mouse' events:
-    console.log(evt)
     })
     var mapEvents = new window.H.mapevents.MapEvents(map)
     var behavior = new window.H.mapevents.Behavior(mapEvents)
@@ -45,7 +49,6 @@ class DesktopMap extends React.Component {
    'style="transform:translate(-10px, -10px)">' +
    '<circle cx="10" cy="10" r="5" stroke="#000" stroke-width="1" fill="#ff00ff" />'+
    '</svg><div>'
-    console.log(this.props)
     this.props.data.map(entry => {
 
     if (entry._geoloc) {
@@ -73,11 +76,22 @@ class DesktopMap extends React.Component {
     })
   }
 
+  modalContent () {
+    const shelter = this.state.current
+    return (
+      <div>
+        <p>{shelter.name}</p>
+        <p>{shelter.address}</p>
+        <p>{shelter.phone}</p>
+      </div>
+    )
+  }
+
   render () {
     console.log(this.state)
     return (
       <div ref='mapContainer' className='mapContainer'>
-        
+        {this.state.showModal && <Modal content={this.modalContent()} onClose={this.handleModalClose}/>}
       </div>
     )
   }
