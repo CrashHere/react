@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import DesktopMain from './DesktopMain'
+import MobileMain from './MobileMain'
 
 class App extends Component {
   state = {
@@ -19,10 +20,12 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        {this.state.windowWidth > 600 ?
+        {this.state.windowWidth > 1000 ?
           <DesktopMain />
           :
-          <div>Hello world</div>
+          <MobileMain
+            mobile
+          />
         }
       </div>
     );
