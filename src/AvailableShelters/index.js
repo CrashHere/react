@@ -15,7 +15,6 @@ class GpsOrManual extends Component {
     return (
       <div className="available-shelters-container">
         <div className="available-shelters-header">
-          <button onTouchStart={this.props.showDirectionsFalse}>Back</button>
           <span>Available Shelters</span>
         </div>
         <div className="available-shelters-map-container">
@@ -33,3 +32,5 @@ function mapDispatchToProps (dispatch) {
   }
 }
 export default connect(null, mapDispatchToProps)(GpsOrManual)
+
+// <button onTouchStart={this.props.showDirectionsFalse}>Back</button>
