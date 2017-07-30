@@ -1,0 +1,18 @@
+.available-shelters-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.available-shelters-header {
+  background-color: white;
+  text-align: center;
+  padding: 20px 110px;
+  color: #35343D;
+  font-family: Poppins;
+  font-size: 16px;
+}
+
+.available-shelters-map-container {
+  height: 100vh;
+  width: 100%;
+}

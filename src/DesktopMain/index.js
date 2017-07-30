@@ -13,7 +13,7 @@ class DesktopMain extends Component {
           <SideComponent />
         </div>
         <div className="map-component">
-          <DesktopMap data={sampleData}/>
+          <DesktopMap />
         </div>
       </div>
     )
