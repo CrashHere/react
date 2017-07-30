@@ -29,7 +29,8 @@ class LocationInput extends Component {
 
   render() {
     const {
-      onOptionClick,
+      // onOptionClick,
+      goToMap,
     } = this.props;
     const { query } = this.state
     return (
@@ -54,7 +55,7 @@ class LocationInput extends Component {
             />
           </div>
           <div className="location-input-buttons">
-            <div className="location-input-button" onClick={onOptionClick("gpsOrManual")}>
+            <div className="location-input-button" onClick={goToMap("mapMobile")}>
               <span className="location-input-button-text">Next</span>
             </div>
           </div>
