@@ -18,6 +18,7 @@ class Options extends Component {
       gpsOrManual: (
         <GpsOrManual
           onOptionClick={this.toggleComponent}
+          mobile={this.props.mobile}
         />
       ),
       location: (
