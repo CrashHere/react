@@ -92,6 +92,7 @@ class DesktopMap extends React.Component {
         <p className="pop-up-name">{shelter.name}</p>
         <p className="pop-up-address">{shelter.address}</p>
         <p className="pop-up-phone">Phone: {shelter.phone}</p>
+        {shelter.hours && <p className="pop-up-hours">{shelter.hours}</p>}
         <button className="directions-button" onClick={() => this.generateDirections(shelter._geoloc)}>Directions</button>
         <button className="close-button" onClick={() => this.handleModalClose()}>Close</button>
       </div>
@@ -150,7 +151,7 @@ class DesktopMap extends React.Component {
               : null
           }
           {
-            showModal && <Modal content={this.modalContent()} handleClose={this.handleModalClose} />
+            showModal && <div className="modal"><Modal content={this.modalContent()} handleClose={this.handleModalClose} /></div>
           }
         </div>
       )

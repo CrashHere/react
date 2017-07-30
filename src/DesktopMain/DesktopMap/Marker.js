@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
+import svg from './markerIcon'
+
 class Marker extends Component {
   constructor (props) {
     super(props)
@@ -12,13 +14,7 @@ class Marker extends Component {
 
   componentWillMount () {
     const { hit, map, onClick } = this.props
-    const animatedSvg =
-      '<div><svg width="20" height="20" ' +
-      'xmlns="http://www.w3.org/2000/svg" ' +
-      'style="transform:translate(-10px, -10px)">' +
-      '<circle cx="10" cy="10" r="5" stroke="#000" stroke-width="1" fill="#ff00ff" />'+
-      '</svg><div>'
-    const icon = new window.H.map.DomIcon(animatedSvg, {
+    const icon = new window.H.map.DomIcon(svg, {
       onAttach: element => {
         element.addEventListener('click', () => onClick(hit))
       }
