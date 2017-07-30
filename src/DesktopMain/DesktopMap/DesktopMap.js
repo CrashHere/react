@@ -7,7 +7,7 @@ import Directions from '../DesktopDirections/DesktopDirections'
 import './map.css'
 import Marker from './Marker'
 
-import {mapInstance} from '../../actions'
+import {mapInstance, showDirections} from '../../actions'
 
 class DesktopMap extends React.Component {
   constructor (props) {
@@ -20,7 +20,6 @@ class DesktopMap extends React.Component {
       },
       map: null,
       showModal: false,
-      showDirections: false,
       center: { lat: -36.8484600, lng: 174.7633 },
       zoom: 10
     }
@@ -47,6 +46,10 @@ class DesktopMap extends React.Component {
         this.props.map.setZoom(15)
         }
     })
+  }
+
+  componentWillRecieveProps () {
+    this.props.mapInstance(null)
   }
 
   createMap (element) {
@@ -92,30 +95,33 @@ class DesktopMap extends React.Component {
         <p className="pop-up-name">{shelter.name}</p>
         <p className="pop-up-address">{shelter.address}</p>
         <p className="pop-up-phone">Phone: {shelter.phone}</p>
-        {shelter.hours && <p className="pop-up-hours">{shelter.hours}</p>}
-        <button className="directions-button" onClick={() => this.generateDirections(shelter._geoloc)} onTouchStart={() => this.generateDirections(shelter._geoloc)}>Directions</button>
-        <button className="close-button" onClick={() => this.handleModalClose()}>Close</button>
+        {shelter.availability && <p className="pop-up-hours">{shelter.availability}</p>}
+        <div className="pop-up-buttons">
+          <button className="directions-button" onClick={() => this.generateDirections(shelter._geoloc)}>Directions</button>
+          <button className="close-button" onClick={() => this.handleModalClose()}>Close</button>
+        </div>
       </div>
     )
   }
 
   generateDirections (destination) {
+    console.log(destination)
     navigator.geolocation.getCurrentPosition(position => {
     this.setState({
       end: destination,
       start: {lat: position.coords.latitude, lng:position.coords.longitude},
-      showDirections: true
       })
+      this.props.showDirectionsTrue()
     })
   }
 
   render () {
     const { hits } = this.props
     const {
-      showDirections,
       showModal
     } = this.state
-    if (showDirections) {
+    if (this.props.showDirections) {
+      console.log(this.state.end)
       return (
         <Directions
           end={this.state.end}
@@ -127,6 +133,7 @@ class DesktopMap extends React.Component {
         <div
           className='mapContainer'
           ref={element => {
+            console.log(element)
             if (!this.props.map) {
               this.createMap(element)
             }
@@ -161,13 +168,15 @@ class DesktopMap extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    map: state.map
+    map: state.map,
+    showDirections: state.showDirections,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    mapInstance: map => dispatch(mapInstance(map))
+    mapInstance: map => dispatch(mapInstance(map)),
+    showDirectionsTrue: () => dispatch(showDirections())
   }
 }
 
@@ -179,4 +188,3 @@ const withState = connect(
 )
 
 export default withState(withSearch(DesktopMap))
-

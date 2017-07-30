@@ -56,6 +56,11 @@
   line-height: 16px;
 }
 
+.pop-up-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .directions-button {
   height: 56px;
   width: 220px;
@@ -78,7 +83,6 @@
 .close-button {
   height: 56px;
   width: 150px;
-  margin-left: 20px;
   border-radius: 100px;
   background-color: #76FF03;
   border: none;

@@ -24,6 +24,7 @@ class Options extends Component {
         <LocationInput
           onOptionClick={this.toggleComponent}
           goToMap={this.props.goToMap}
+          mobile={this.props.mobile}
         />
       ),
     }

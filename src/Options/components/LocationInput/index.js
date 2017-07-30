@@ -27,6 +27,16 @@ class LocationInput extends Component {
     event.preventDefault()
   }
 
+  // handleOnclick = () => {
+  //   console.log("click")
+  //   if (this.props.mobile) {
+  //     console.log("mobile")
+  //     this.props.goToMap("mobileMap")
+  //   } else {
+  //     console.log("desktop")
+  //   }
+  // }
+
   render() {
     const {
       // onOptionClick,
