@@ -23,6 +23,7 @@ class Options extends Component {
       location: (
         <LocationInput
           onOptionClick={this.toggleComponent}
+          goToMap={this.props.goToMap}
         />
       ),
     }
