@@ -93,7 +93,7 @@ class DesktopMap extends React.Component {
         <p className="pop-up-address">{shelter.address}</p>
         <p className="pop-up-phone">Phone: {shelter.phone}</p>
         {shelter.hours && <p className="pop-up-hours">{shelter.hours}</p>}
-        <button className="directions-button" onClick={() => this.generateDirections(shelter._geoloc)}>Directions</button>
+        <button className="directions-button" onClick={() => this.generateDirections(shelter._geoloc)} onTouchStart={() => this.generateDirections(shelter._geoloc)}>Directions</button>
         <button className="close-button" onClick={() => this.handleModalClose()}>Close</button>
       </div>
     )
