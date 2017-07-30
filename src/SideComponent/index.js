@@ -9,9 +9,12 @@ class SideComponent extends Component {
     component: "options"
   }
   goToMap = (component) => () => {
-    this.setState({
-      component
-    })
+    if (this.props.mobile) {
+      console.log(component)
+      this.setState({
+        component
+      })
+    }
   }
   render() {
     const sideComponents = {
@@ -24,13 +27,16 @@ class SideComponent extends Component {
           <div className="options">
             <Options
               goToMap={this.goToMap}
+              mobile={this.props.mobile}
             />
           </div>
         </div>
       ),
       mapMobile: (
         <div className="side-component-map-container">
-          <AvailableShelters />
+          <AvailableShelters
+            goToMap={this.goToMap}
+          />
         </div>
       ),
     }
