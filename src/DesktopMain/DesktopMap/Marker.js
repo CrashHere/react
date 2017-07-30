@@ -17,6 +17,7 @@ class Marker extends Component {
     const icon = new window.H.map.DomIcon(svg, {
       onAttach: element => {
         element.addEventListener('click', () => onClick(hit))
+        element.addEventListener('touchstart', () => onClick(hit))
       }
     })
     const marker = new window.H.map.DomMarker(hit._geoloc,{icon})
